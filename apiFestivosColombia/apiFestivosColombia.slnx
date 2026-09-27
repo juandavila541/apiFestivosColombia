@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="apifestivos.core/apifestivos.core.csproj" />
+  <Project Path="apifestivos.dominio/apifestivos.dominio.csproj" />
+  <Project Path="apifestivos.infraestructura/apifestivos.infraestructura.csproj" />
+</Solution>
