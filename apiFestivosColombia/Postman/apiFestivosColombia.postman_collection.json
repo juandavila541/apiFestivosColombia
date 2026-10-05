@@ -1,0 +1,186 @@
+{
+  "info": {
+    "name": "apiFestivosColombia",
+    "description": "Peticiones de la API de Festivos. Ejecutar primero la API (perfil https) y verificar que baseUrl apunte al puerto correcto.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://localhost:7085" },
+    { "key": "idFestivo", "value": "" },
+    { "key": "idPais", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Festivos",
+      "item": [
+        {
+          "name": "Listar todos los festivos",
+          "protocolProfileBehavior": { "strictSSL": false },
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/festivos" }
+        },
+        {
+          "name": "Obtener festivo por Id",
+          "protocolProfileBehavior": { "strictSSL": false },
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/festivos/1" }
+        },
+        {
+          "name": "Buscar por nombre del festivo (IndiceDato = 1)",
+          "protocolProfileBehavior": { "strictSSL": false },
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/festivos/1/Navidad" }
+        },
+        {
+          "name": "Buscar por nombre del país (IndiceDato = 2)",
+          "protocolProfileBehavior": { "strictSSL": false },
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/festivos/2/Colombia" }
+        },
+        {
+          "name": "Festivos de un país",
+          "protocolProfileBehavior": { "strictSSL": false },
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/festivos/pais/1" }
+        },
+        {
+          "name": "Verificar fecha - Es festivo (12 enero 2026)",
+          "protocolProfileBehavior": { "strictSSL": false },
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/festivos/verificar/1/2026/1/12" }
+        },
+        {
+          "name": "Verificar fecha - No es festivo (6 enero 2026)",
+          "protocolProfileBehavior": { "strictSSL": false },
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/festivos/verificar/1/2026/1/6" }
+        },
+        {
+          "name": "Verificar fecha - Fecha no válida (30 febrero)",
+          "protocolProfileBehavior": { "strictSSL": false },
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/festivos/verificar/1/2026/2/30" }
+        },
+        {
+          "name": "Listar festivos de Colombia en 2026",
+          "protocolProfileBehavior": { "strictSSL": false },
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/festivos/obtener/1/2026" }
+        },
+        {
+          "name": "Crear festivo",
+          "protocolProfileBehavior": { "strictSSL": false },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    pm.collectionVariables.set(\"idFestivo\", pm.response.json().id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/api/festivos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 0,\n  \"idPais\": 1,\n  \"nombre\": \"Festivo de prueba\",\n  \"dia\": 15,\n  \"mes\": 9,\n  \"diasPascua\": 0,\n  \"idTipo\": 1\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          }
+        },
+        {
+          "name": "Modificar festivo creado",
+          "protocolProfileBehavior": { "strictSSL": false },
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/api/festivos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": {{idFestivo}},\n  \"idPais\": 1,\n  \"nombre\": \"Festivo de prueba modificado\",\n  \"dia\": 16,\n  \"mes\": 9,\n  \"diasPascua\": 0,\n  \"idTipo\": 2\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          }
+        },
+        {
+          "name": "Eliminar festivo creado",
+          "protocolProfileBehavior": { "strictSSL": false },
+          "request": { "method": "DELETE", "url": "{{baseUrl}}/api/festivos/{{idFestivo}}" }
+        }
+      ]
+    },
+    {
+      "name": "Países",
+      "item": [
+        {
+          "name": "Listar países",
+          "protocolProfileBehavior": { "strictSSL": false },
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/paises" }
+        },
+        {
+          "name": "Obtener país por Id",
+          "protocolProfileBehavior": { "strictSSL": false },
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/paises/1" }
+        },
+        {
+          "name": "Crear país",
+          "protocolProfileBehavior": { "strictSSL": false },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    pm.collectionVariables.set(\"idPais\", pm.response.json().id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/api/paises",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 0,\n  \"nombre\": \"PAIS DE PRUEBA\"\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          }
+        },
+        {
+          "name": "Modificar país creado",
+          "protocolProfileBehavior": { "strictSSL": false },
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/api/paises",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": {{idPais}},\n  \"nombre\": \"PAIS DE PRUEBA MODIFICADO\"\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          }
+        },
+        {
+          "name": "Eliminar país creado",
+          "protocolProfileBehavior": { "strictSSL": false },
+          "request": { "method": "DELETE", "url": "{{baseUrl}}/api/paises/{{idPais}}" }
+        }
+      ]
+    },
+    {
+      "name": "Tipos de festivo",
+      "item": [
+        {
+          "name": "Listar tipos",
+          "protocolProfileBehavior": { "strictSSL": false },
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/tipos" }
+        },
+        {
+          "name": "Obtener tipo por Id",
+          "protocolProfileBehavior": { "strictSSL": false },
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/tipos/1" }
+        }
+      ]
+    }
+  ]
+}
