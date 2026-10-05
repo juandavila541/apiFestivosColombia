@@ -1,22 +1,28 @@
+using apiFestivosColombia.InyeccionDependencias;
+
+//crear el CONSTRUCTOR de la aplicación web
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+//establecer objeto de configuracion
+var configuracion = builder.Configuration;
 
+//establecer los objetos a inyectar
+builder.Services.AgregarDependencias(configuracion);
+
+//instanciar los controladores
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
 
+//agregar el servicio de SWAGGER
+builder.Services.AddSwaggerGen();
+
+//crear la aplicación web
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
+//permitir SWAGGER (documentación técnica de la API)
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
-
-app.UseAuthorization();
 
 app.MapControllers();
 

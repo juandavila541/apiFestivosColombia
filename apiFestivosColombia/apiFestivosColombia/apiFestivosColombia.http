@@ -1,6 +1,11 @@
 @apiFestivosColombia_HostAddress = http://localhost:5165
 
-GET {{apiFestivosColombia_HostAddress}}/weatherforecast/
+GET {{apiFestivosColombia_HostAddress}}/api/festivos/verificar/1/2026/1/12
+Accept: application/json
+
+###
+
+GET {{apiFestivosColombia_HostAddress}}/api/festivos/obtener/1/2026
 Accept: application/json
 
 ###

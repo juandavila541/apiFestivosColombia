@@ -2,7 +2,7 @@
 
 namespace apifestivos.dominio
 {
-    [Table("TipoFestivo")]
+    [Table("Tipo")]
     public class TipoFestivo
     {
         [Column("Id")]

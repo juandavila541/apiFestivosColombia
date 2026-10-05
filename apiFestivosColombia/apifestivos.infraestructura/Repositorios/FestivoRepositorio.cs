@@ -17,6 +17,9 @@ namespace apifestivos.infraestructura.Repositorios
 
         public async Task<Festivo> Agregar(Festivo Festivo)
         {
+            // las relaciones se asignan por IdPais / IdTipo, no se insertan objetos anidados
+            Festivo.Pais = null;
+            Festivo.TipoFestivo = null;
             // agregar elemento al DbSet
             contexto.Festivos.Add(Festivo);
             // llevar los cambios a la base de datos

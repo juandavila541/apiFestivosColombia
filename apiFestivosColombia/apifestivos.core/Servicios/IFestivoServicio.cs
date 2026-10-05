@@ -1,4 +1,5 @@
-﻿using apifestivos.dominio;
+using apifestivos.dominio;
+using apifestivos.dominio.Dtos;
 
 namespace apifestivos.core.servicios
 {
@@ -7,6 +8,8 @@ namespace apifestivos.core.servicios
         Task<IEnumerable<Festivo>> ObtenerTodos();
 
         Task<Festivo> Obtener(int Id);
+
+        Task<IEnumerable<Festivo>> Buscar(int IndiceDato, string Texto);
 
         Task<Festivo> Agregar(Festivo Festivo);
 
@@ -19,5 +22,8 @@ namespace apifestivos.core.servicios
 
         // Verificar si una fecha es festivo
         Task<bool> EsFestivo(int IdPais, DateTime Fecha);
+
+        // Fechas de los festivos de un país en un año
+        Task<IEnumerable<FechaFestivoDto>> ObtenerFestivos(int IdPais, int Año);
     }
 }

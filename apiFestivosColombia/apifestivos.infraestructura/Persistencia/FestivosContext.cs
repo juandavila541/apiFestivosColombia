@@ -1,11 +1,15 @@
 ﻿using apifestivos.dominio;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.Emit;
 
 namespace apifestivos.infraestructura.Persistencia
 {
     public class FestivosContext : DbContext
     {
+        public FestivosContext(DbContextOptions<FestivosContext> opciones) : base(opciones)
+        {
+
+        }
+
         public DbSet<Pais> Paises { get; set; }
         public DbSet<TipoFestivo> TiposFestivo { get; set; }
         public DbSet<Festivo> Festivos { get; set; }
